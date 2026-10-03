@@ -1,0 +1,20 @@
+# Moves Casks/vhid.rb to vhid's newest release. What it does is promptctl/vhid's
+# .github/workflows/cask.yml, beside the script it runs; this file gives it the schedule
+# and the write to this tap, through this tap's own token.
+name: vhid
+
+on:
+  schedule:
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One move at a time: a run that starts behind another waits, and finds the cask moved.
+concurrency:
+  group: vhid
+
+jobs:
+  cask:
+    uses: promptctl/vhid/.github/workflows/cask.yml@master
