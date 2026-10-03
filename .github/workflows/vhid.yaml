@@ -1,5 +1,5 @@
 # Moves Casks/vhid.rb to vhid's newest release. What it does is promptctl/vhid's
-# .github/workflows/cask.yml, beside the script it runs; this file gives it the schedule
+# .github/workflows/cask.yaml, beside the script it runs; this file gives it the schedule
 # and the write to this tap, through this tap's own token.
 name: vhid
 
@@ -17,4 +17,4 @@ concurrency:
 
 jobs:
   cask:
-    uses: promptctl/vhid/.github/workflows/cask.yml@master
+    uses: promptctl/vhid/.github/workflows/cask.yaml@master
