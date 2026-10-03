@@ -1,6 +1,6 @@
 cask "vhid" do
-  version "0.1.0"
-  sha256 "4e82703425cfe5f47950177ec80682448aab2617b1bc1644a80dca1f629d01e2"
+  version "0.2.0"
+  sha256 "c97da71ce00239d92142037ebdbc0c0fa2eebdfbc8d9cbbdd0078d502c2e4871"
 
   url "https://github.com/promptctl/vhid/releases/download/v#{version}/vhid-#{version}.pkg"
   name "vhid"
