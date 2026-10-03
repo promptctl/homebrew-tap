@@ -17,10 +17,27 @@ cask "vhid" do
   pkg "vhid-#{version}.pkg"
 
   # vhid-uninstall is the one list of what the pkg installed; it stops the daemon and the
-  # menu bar item, removes their files and forgets the receipt. It leaves the pqrs driver,
-  # which Karabiner-Elements may share.
+  # menu bar item, removes their files and forgets the receipt. It also deletes itself, vhid
+  # and the driver removal, and brew runs zap after uninstall, so the three are copied here,
+  # where they outlive that and brew purges them with the rest of the cask. vhid-uninstall
+  # finds vhid and the driver removal from where it runs, so the copy keeps /usr/local's layout.
+  postflight do
+    %w[bin/vhid libexec/vhid-uninstall libexec/vhid-virtual-hid-driver].each do |path|
+      (staged_path/"kit"/path).dirname.mkpath
+      FileUtils.cp "/usr/local/#{path}", staged_path/"kit"/path, preserve: true
+    end
+  end
+
+  # Leaves the pqrs driver, which Karabiner-Elements may share.
   uninstall script: {
-    executable: "/usr/local/libexec/vhid-uninstall",
+    executable: "#{staged_path}/kit/libexec/vhid-uninstall",
+    sudo:       true,
+  }
+
+  # The pqrs driver too, refusing as `vhid-uninstall --driver` does.
+  zap script: {
+    executable: "#{staged_path}/kit/libexec/vhid-uninstall",
+    args:       ["--driver"],
     sudo:       true,
   }
 
