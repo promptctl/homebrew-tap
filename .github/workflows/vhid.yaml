@@ -1,11 +1,11 @@
 # Moves Casks/vhid.rb to vhid's newest release. What it does is promptctl/vhid's
-# .github/workflows/cask.yaml, beside the script it runs; this file gives it the schedule
-# and the write to this tap, through this tap's own token.
+# .github/workflows/cask.yaml, beside the script it runs; this file gives it the write to
+# this tap, through this tap's own token. vhid's release.yaml starts it once a release is
+# published, and `gh workflow run vhid.yaml` starts it by hand (vhid's docs/releasing.md);
+# nothing else does.
 name: vhid
 
 on:
-  schedule:
-    - cron: '17,47 * * * *'
   workflow_dispatch:
 
 permissions:
