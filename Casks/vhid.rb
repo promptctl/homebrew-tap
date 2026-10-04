@@ -2,8 +2,8 @@
 # repository's scripts/update-cask, which fills in the release's version and its pkg's
 # sha256. Edit pkg/vhid.rb there; a hand edit here is gone at the next release.
 cask "vhid" do
-  version "0.4.0"
-  sha256 "b0c0fd3008688b5bc5d03661f68ca597257427f991b83bb61858abad85aa1cbb"
+  version "0.4.1"
+  sha256 "c7ed04833bda5f2ad9e0371ab979b8d025f4633bc68713e0742ab3664edd5071"
 
   url "https://github.com/promptctl/vhid/releases/download/v#{version}/vhid-#{version}.pkg"
   name "vhid"
@@ -24,11 +24,10 @@ cask "vhid" do
   # and the driver removal, and brew runs zap after uninstall, so the three are copied here,
   # where they outlive that and brew purges them with the rest of the cask. vhid-uninstall
   # finds vhid and the driver removal from where it runs, so the copy keeps /usr/local's layout.
-  postflight do
-    %w[bin/vhid libexec/vhid-uninstall libexec/vhid-virtual-hid-driver].each do |path|
-      (staged_path/"kit"/path).dirname.mkpath
-      FileUtils.cp "/usr/local/#{path}", staged_path/"kit"/path, preserve: true
-    end
+  postflight_steps do
+    copy "/usr/local/bin/vhid", "kit/bin/vhid"
+    copy "/usr/local/libexec/vhid-uninstall", "kit/libexec/vhid-uninstall"
+    copy "/usr/local/libexec/vhid-virtual-hid-driver", "kit/libexec/vhid-virtual-hid-driver"
   end
 
   # Leaves the pqrs driver, which Karabiner-Elements may share.
