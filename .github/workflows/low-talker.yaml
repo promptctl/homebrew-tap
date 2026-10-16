@@ -1,0 +1,19 @@
+# Moves Casks/low-talker.rb to low-talker's newest release. What it does is promptctl/low-talker's
+# .github/workflows/cask.yml, beside the script it runs; this file gives it the write to this
+# tap, through this tap's own token. low-talker's release.yml starts it once a release is
+# published, and `gh workflow run low-talker.yaml` starts it by hand; nothing else does.
+name: low-talker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One move at a time: a run that starts behind another waits, and finds the cask moved.
+concurrency:
+  group: low-talker
+
+jobs:
+  cask:
+    uses: promptctl/low-talker/.github/workflows/cask.yml@master
