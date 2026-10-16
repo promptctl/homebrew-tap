@@ -8,17 +8,18 @@ cask "low-talker" do
   # The offline package: the network one replaces it, and only one may be installed.
   url "https://github.com/promptctl/low-talker/releases/download/v#{version}/LowTalker-offline.pkg"
   name "LowTalker"
-  desc "Push-to-talk dictation that runs entirely on your Mac"
+  desc "Push-to-talk dictation that runs entirely on-device"
   homepage "https://github.com/promptctl/low-talker"
 
   # Every release so far is a pre-release, which :github_latest never offers.
   livecheck do
     url "https://github.com/promptctl/low-talker/releases"
-    regex(/^v?(\d+(?:\.\d+)+(?:-[\w.]+)?)$/i)
-    strategy :github_releases
+    strategy :github_releases do |json|
+      json.filter_map { |release| release["tag_name"]&.delete_prefix("v") unless release["draft"] }
+    end
   end
 
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
 
   pkg "LowTalker-offline.pkg"
 
