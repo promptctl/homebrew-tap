@@ -2,8 +2,8 @@
 # repository's scripts/update-cask, which fills in the release's version and its pkg's
 # sha256. Edit pkg/vhid.rb there; a hand edit here is gone at the next release.
 cask "vhid" do
-  version "0.5.0"
-  sha256 "501860764cbce175b4b8e0f982f8fcf876f3cc9d56ebb5050f70a4cde3e8748d"
+  version "0.6.0"
+  sha256 "f2f46d617ad2155b08d3f6e6af782caa2fcc0e38abb95bcb900238f7da48aa28"
 
   url "https://github.com/promptctl/vhid/releases/download/v#{version}/vhid-#{version}.pkg"
   name "vhid"
