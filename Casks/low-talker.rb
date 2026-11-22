@@ -2,8 +2,8 @@
 # and sha256 are the two @-words scripts/update-cask fills in from a release; the tap's copy
 # is that file's output, so a change to the cask is made here.
 cask "low-talker" do
-  version "0.1.0-alpha.10"
-  sha256 "20d6692d7bedf77b89083daeb3526acdfd88bb9bc02857c70b43207f16cd2097"
+  version "0.1.0-alpha.11"
+  sha256 "c22aab97c7653e1b95518ee0f7bf471743d612ff9a50e3919776e00aa2cb1f63"
 
   # The offline package: the network one replaces it, and only one may be installed.
   url "https://github.com/promptctl/low-talker/releases/download/v#{version}/LowTalker-offline.pkg"
